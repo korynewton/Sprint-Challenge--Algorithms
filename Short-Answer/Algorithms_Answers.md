@@ -46,3 +46,35 @@ c)  def bunnyEars(bunnies):
 
       answer: this will run with O(n) runtime complexity because the recursive function will be called n amount of times. If bunnies = 1 on the original call it will end up calling itself 1 additional time. If the main funtion is called with bunnies = 4, it will call itself recursively 4 additional times. This is a linear relationship.
 ```
+
+## Exercise II
+
+Suppose that you have an _n_-story building and plenty of eggs. Suppose also that an egg gets broken if it is thrown off floor _f_ or higher, and doesn't get broken if dropped off a floor less than floor _f_. Devise a strategy to determine the value of _f_ such that the number of dropped eggs is minimized.
+
+Write out your proposed algorithm in plain English or pseudocode and give the runtime complexity of your solution.
+
+```
+answer:
+Assuming we don't already know that in real life an egg will crack if dropped from about 6 inches, I think the best approach to this hypothetical situation would to search for _f_ in a similar manner as a binary search.
+
+low = 0
+high = n
+mid = n // 2
+
+while low <= high:
+    go to mid and drop egg
+    if egg breaks: (we are too high)
+        high = mid - 1
+        mid = high - low // 2
+    if egg does not break: (we are not high enough)
+        low = mid + 1
+        mid = high - low // 2
+
+repeat this until we narrow it down two floors:
+    -if the final two sequences are Break then No Break, then we know f is the latter floor
+
+    -if the final two sequences are No Break and then Break, then we know f is the former floor
+
+This would have a runtime complexity of O(log n) since the field of possible correct answers is being halved on every loop
+
+```
